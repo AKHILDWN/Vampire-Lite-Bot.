@@ -1,0 +1,13 @@
+{
+  "name": "vampire-lite",
+  "version": "1.0.0",
+  "description": "Messenger Name Lock Bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "fb-chat-api": "^1.0.4",
+    "fs-extra": "^10.0.0"
+  }
+}
