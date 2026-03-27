@@ -7,7 +7,8 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "fb-chat-api": "^1.0.4",
-    "fs-extra": "^10.0.0"
+    "fb-chat-api": "latest",
+    "fs-extra": "latest"
   }
 }
+
