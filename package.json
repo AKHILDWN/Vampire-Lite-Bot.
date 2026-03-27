@@ -6,7 +6,7 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "fca-project-orion": "latest",
-    "fs-extra": "^10.0.0"
+    "fca-project-orion": "1.2.0",
+    "fs-extra": "10.0.0"
   }
 }
