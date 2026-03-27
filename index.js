@@ -1,4 +1,4 @@
-const login = require("fb-chat-api");
+const login = require("fca-project-orion");
 const fs = require("fs");
 
 const MY_ID = "61567276533610"; // Yuvi ki ID
@@ -9,30 +9,28 @@ let isNameLocked = false;
 const appState = JSON.parse(fs.readFileSync('appstate.json', 'utf8'));
 
 login({appState}, (err, api) => {
-    if(err) return console.error("Login Error!", err);
+    if(err) return console.error("Login Error ho gaya!", err);
 
     api.setOptions({listenEvents: true, selfListen: false});
-    console.log("Bot is ONLINE, Yuvi!");
+    console.log("Bot is ONLINE, Yuvi! Ab koi error nahi aayega.");
 
     api.listenMqtt((err, event) => {
         if(err) return;
 
-        // --- 1. NAME LOCK PROTECTION LOGIC ---
+        // 1. NAME LOCK LOGIC
         if (event.type === "event" && event.logMessageType === "log:thread-name") {
             if (isNameLocked && event.author !== api.getCurrentUserID()) {
-                // Agar koi naam badle, toh bot turant wapas lock wala naam set karega
                 api.setTitle(lockedName, event.threadID);
             }
         }
 
-        // --- 2. COMMANDS (ONLY FOR YUVI) ---
+        // 2. COMMANDS (ONLY FOR YUVI)
         if (event.type === "message" && event.body && event.body.startsWith(PREFIX)) {
-            if (event.senderID !== MY_ID) return; // Dusron ki command ignore
+            if (event.senderID !== MY_ID) return; 
 
             const args = event.body.slice(PREFIX.length).trim().split(/ +/);
             const command = args.shift().toLowerCase();
 
-            // Command: #namelock on [Name]
             if (command === "namelock") {
                 if (args[0] === "on") {
                     isNameLocked = true;
@@ -45,7 +43,6 @@ login({appState}, (err, api) => {
                 }
             }
 
-            // Command: #setall [Nickname]
             if (command === "setall") {
                 const nick = args.join(" ");
                 api.getThreadInfo(event.threadID, (err, info) => {
